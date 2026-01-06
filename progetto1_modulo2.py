@@ -16,11 +16,25 @@ df=pd.DataFrame(dati)
 
 df.loc[10]=["2026-01-01","alimentari",10,10.0]          # aggiunta di duplicati
 df.loc[11]=["2026-01-03","alimentari",15,"dieci"]
-df.loc[12]=["2026-01-5","giocattoli",np.nan,20.0]
+df.loc[12]=["2026-01-05","giocattoli",np.nan,20.0]
 
-print("Prime righe del dataset:")
-print(df.head())
-print("\nStruttura del dataset:")
-print(df.info())
-print("\nStatistiche descrittive del dataset:")
-print(df.describe())
+#print(df)
+#print("\nPrime righe del dataset:")
+#print(df.head())
+#print("\nStruttura del dataset:")
+#print(df.info(memory_usage="deep"))
+#print("\nStatistiche descrittive del dataset:")
+#print(df.describe())
+
+
+# parte 2
+
+df["data"]=pd.to_datetime(df["data"])
+df["vendite"]=pd.to_numeric(df["vendite"],errors='coerce')
+df["vendite"]=df["vendite"].fillna(0)
+df["prezzo"]=pd.to_numeric(df["prezzo"],errors='coerce')
+df["prezzo"]=df["prezzo"].fillna(df["prezzo"].mean())
+df=df.drop_duplicates()
+
+print("\nDataset ripulito:\n")
+print(df)
