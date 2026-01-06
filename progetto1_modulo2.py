@@ -18,13 +18,13 @@ df.loc[10]=["2026-01-01","alimentari",10,10.0]          # aggiunta di duplicati
 df.loc[11]=["2026-01-03","alimentari",15,"dieci"]
 df.loc[12]=["2026-01-05","giocattoli",np.nan,20.0]
 
-#print(df)
-#print("\nPrime righe del dataset:")
-#print(df.head())
-#print("\nStruttura del dataset:")
-#print(df.info(memory_usage="deep"))
-#print("\nStatistiche descrittive del dataset:")
-#print(df.describe())
+print(df)
+print("\nPrime righe del dataset:")
+print(df.head())
+print("\nStruttura del dataset:")
+print(df.info(memory_usage="deep"))
+print("\nStatistiche descrittive del dataset:")
+print(df.describe())
 
 
 # parte 2
@@ -38,3 +38,20 @@ df=df.drop_duplicates()
 
 print("\nDataset ripulito:\n")
 print(df)
+
+# parte 3
+
+vendite_totali=df.groupby("prodotto")["vendite"].sum().reset_index()
+print("\nVendite totali per prodotto:")
+print(vendite_totali)
+
+prodotto_piu_venduto=vendite_totali.loc[vendite_totali["vendite"].idxmax()]
+prodotto_meno_venduto=vendite_totali.loc[vendite_totali["vendite"].idxmin()]
+print("\nProdotto più venduto:")
+print(prodotto_piu_venduto)
+print("\nProdotto meno venduto:")
+print(prodotto_meno_venduto)
+
+vendite_medie_giornaliere=df.groupby("data")["vendite"].mean().reset_index()
+print("\nVendite medie giornaliere:")
+print(vendite_medie_giornaliere)
